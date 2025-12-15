@@ -3,7 +3,7 @@
 import type React from "react"
 
 import Link from "next/link"
-import { ChevronLeft, ArrowRight, ArrowUpLeft } from "lucide-react"
+import { X, ArrowRight, ArrowUpLeft } from "lucide-react"
 import { useState, useRef } from "react"
 
 export default function EvacuationPage() {
@@ -84,11 +84,8 @@ export default function EvacuationPage() {
           {/* Header overlay */}
           <div className="absolute top-0 left-0 right-0 px-6 pt-10 z-10">
             <div className="flex items-start justify-between">
-              <Link href="/risk-mapping" className="inline-block">
-                <ChevronLeft
-                  className="w-8 h-8 cursor-pointer hover:opacity-70 transition-opacity text-black"
-                  strokeWidth={2}
-                />
+              <Link href="/earthquake" className="inline-block">
+                <X className="w-8 h-8 cursor-pointer hover:opacity-70 transition-opacity text-black" strokeWidth={2} />
               </Link>
 
               <div className="flex items-center gap-1 bg-white/90 backdrop-blur rounded-full p-1 shadow-sm">
@@ -276,6 +273,21 @@ export default function EvacuationPage() {
         </div>
 
         <div className="absolute bottom-9 right-4 flex flex-col gap-2 z-20">
+          <Link
+            href="/report"
+            onPointerDown={(e) => e.stopPropagation()}
+            className="w-10 h-10 bg-white/90 backdrop-blur rounded-full flex items-center justify-center shadow-md hover:bg-white transition-colors"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M16.862 4.487l2.651 2.651M19.513 7.138l-11.8 11.8-3.536.708.708-3.536 11.8-11.8a1.875 1.875 0 012.652 0l.176.176a1.875 1.875 0 010 2.652z"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </Link>
           <button
             onPointerDown={(e) => e.stopPropagation()}
             onClick={handleZoomIn}
@@ -296,11 +308,8 @@ export default function EvacuationPage() {
         <div className="absolute top-0 left-0 right-0 px-6 pt-10 z-10 pointer-events-none">
           <div className="flex flex-col gap-4">
             <div className="flex items-start justify-between">
-              <Link href="/risk-mapping" className="inline-block pointer-events-auto">
-                <ChevronLeft
-                  className="w-8 h-8 cursor-pointer hover:opacity-70 transition-opacity text-white"
-                  strokeWidth={2}
-                />
+              <Link href="/earthquake" className="inline-block pointer-events-auto">
+                <X className="w-8 h-8 cursor-pointer hover:opacity-70 transition-opacity text-white" strokeWidth={2} />
               </Link>
 
               {/* Toggle */}

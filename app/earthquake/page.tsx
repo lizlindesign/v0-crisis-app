@@ -59,7 +59,7 @@ export default function EarthquakePage() {
                 variant="light"
               />
             </Link>
-            <Link href="/emergency" className="block">
+            <Link href="/family-status" className="block">
               <ActionButton icon={<Phone className="w-10 h-10" strokeWidth={2} />} title="CONNECT" variant="light" />
             </Link>
           </div>

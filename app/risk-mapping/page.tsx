@@ -31,7 +31,6 @@ export default function RiskMappingPage() {
   }
 
   const handlePointerDown = (e: React.PointerEvent) => {
-    if (viewMode !== "drone") return
     setIsDragging(true)
     dragStart.current = { x: e.clientX, y: e.clientY }
     positionStart.current = { x: position.x, y: position.y }
@@ -39,7 +38,7 @@ export default function RiskMappingPage() {
   }
 
   const handlePointerMove = (e: React.PointerEvent) => {
-    if (!isDragging || viewMode !== "drone") return
+    if (!isDragging) return
     const dx = e.clientX - dragStart.current.x
     const dy = e.clientY - dragStart.current.y
 
@@ -65,7 +64,6 @@ export default function RiskMappingPage() {
   }
 
   const handleWheel = (e: React.WheelEvent) => {
-    if (viewMode !== "drone") return
     e.preventDefault()
     const delta = e.deltaY > 0 ? -0.15 : 0.15
     setScale((s) => Math.min(Math.max(s + delta, 0.5), 4))
@@ -83,15 +81,19 @@ export default function RiskMappingPage() {
         onPointerCancel={handlePointerUp}
         onWheel={handleWheel}
         style={{
-          cursor: viewMode === "drone" ? (isDragging ? "grabbing" : "grab") : "default",
-          touchAction: viewMode === "drone" ? "none" : "auto",
+          cursor: isDragging ? "grabbing" : "grab",
+          touchAction: "none",
         }}
       >
         {viewMode === "map" ? (
           <div className="absolute inset-0 bg-[#f8f8f8]">
             <div
               className="absolute inset-0"
-              style={{ transform: "rotate(-15deg) scale(1.4)", transformOrigin: "center center" }}
+              style={{
+                transform: `translate(${position.x}px, ${position.y}px) rotate(-15deg) scale(${scale * 1.4})`,
+                transformOrigin: "center center",
+                transition: isDragging ? "none" : "transform 0.15s ease-out",
+              }}
             >
               <svg className="w-full h-full" viewBox="0 0 390 520" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <rect x="20" y="100" width="100" height="80" fill="#f0f0f0" stroke="#e0e0e0" strokeWidth="2" />
@@ -176,24 +178,37 @@ export default function RiskMappingPage() {
           </div>
         )}
 
-        {viewMode === "drone" && (
-          <div className="absolute bottom-9 right-4 flex flex-col gap-2 z-20">
-            <button
-              onPointerDown={(e) => e.stopPropagation()}
-              onClick={handleZoomIn}
-              className="w-10 h-10 bg-white/90 backdrop-blur rounded-full flex items-center justify-center shadow-md text-xl font-medium hover:bg-white transition-colors"
-            >
-              +
-            </button>
-            <button
-              onPointerDown={(e) => e.stopPropagation()}
-              onClick={handleZoomOutWithReset}
-              className="w-10 h-10 bg-white/90 backdrop-blur rounded-full flex items-center justify-center shadow-md text-xl font-medium hover:bg-white transition-colors"
-            >
-              −
-            </button>
-          </div>
-        )}
+        <div className="absolute bottom-9 right-4 flex flex-col gap-2 z-20">
+          <Link
+            href="/report"
+            onPointerDown={(e) => e.stopPropagation()}
+            className="w-10 h-10 bg-white/90 backdrop-blur rounded-full flex items-center justify-center shadow-md hover:bg-white transition-colors"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M16.862 4.487l2.651 2.651M19.513 7.138l-11.8 11.8-3.536.708.708-3.536 11.8-11.8a1.875 1.875 0 012.652 0l.176.176a1.875 1.875 0 010 2.652z"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </Link>
+          <button
+            onPointerDown={(e) => e.stopPropagation()}
+            onClick={handleZoomIn}
+            className="w-10 h-10 bg-white/90 backdrop-blur rounded-full flex items-center justify-center shadow-md text-xl font-medium hover:bg-white transition-colors"
+          >
+            +
+          </button>
+          <button
+            onPointerDown={(e) => e.stopPropagation()}
+            onClick={handleZoomOutWithReset}
+            className="w-10 h-10 bg-white/90 backdrop-blur rounded-full flex items-center justify-center shadow-md text-xl font-medium hover:bg-white transition-colors"
+          >
+            −
+          </button>
+        </div>
 
         {/* Header overlay */}
         <div className="absolute top-0 left-0 right-0 px-6 pt-10 z-10 pointer-events-none">
