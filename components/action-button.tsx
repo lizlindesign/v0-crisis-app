@@ -2,6 +2,7 @@
 
 import { cn } from "@/lib/utils"
 import type { ReactNode } from "react"
+import { ArrowRight } from "lucide-react"
 
 interface ActionButtonProps {
   icon: ReactNode
@@ -9,9 +10,19 @@ interface ActionButtonProps {
   subtitle?: string
   variant: "dark" | "light"
   focused?: boolean
+  arrowAnimated?: boolean
+  arrowClicked?: boolean
 }
 
-export function ActionButton({ icon, title, subtitle, variant, focused = false }: ActionButtonProps) {
+export function ActionButton({
+  icon,
+  title,
+  subtitle,
+  variant,
+  focused = false,
+  arrowAnimated = false,
+  arrowClicked = false,
+}: ActionButtonProps) {
   return (
     <button
       className={cn(
@@ -30,6 +41,19 @@ export function ActionButton({ icon, title, subtitle, variant, focused = false }
         <span className="text-sm font-bold tracking-wider">{title}</span>
         {subtitle && <span className="text-sm font-bold tracking-wider">{subtitle}</span>}
       </div>
+      {arrowAnimated && (
+        <div className="ml-auto">
+          <ArrowRight
+            className={cn(
+              "w-8 h-8 transition-all",
+              arrowClicked
+                ? "animate-[bounceRight_0.15s_ease-in-out_infinite]"
+                : "animate-[pulseRight_1.5s_ease-in-out_infinite]",
+            )}
+            strokeWidth={2}
+          />
+        </div>
+      )}
     </button>
   )
 }

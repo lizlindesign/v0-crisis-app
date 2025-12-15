@@ -15,7 +15,7 @@ export default function ReportPage() {
             strokeWidth={2}
           />
         </Link>
-        <h1 className="text-4xl font-bold tracking-tight text-foreground mt-4">SEE A PROBLEM?</h1>
+        <h1 className="text-4xl font-bold tracking-tight text-foreground mt-4">A PROBLEM?</h1>
       </div>
 
       {/* Illustration Section */}

@@ -3,7 +3,7 @@
 import type React from "react"
 
 import Link from "next/link"
-import { ChevronLeft } from "lucide-react"
+import { ChevronLeft, Phone } from "lucide-react"
 import { useState, useRef } from "react"
 
 export default function FamilyStatusPage() {
@@ -334,33 +334,32 @@ export default function FamilyStatusPage() {
                 FAMILY STATUS
               </h1>
             </div>
-
-            <div className="flex items-center gap-1 bg-white/90 backdrop-blur rounded-full p-1 shadow-sm pointer-events-auto">
-              <button
-                onClick={() => {
-                  setViewMode("map")
-                  setScale(0.7) // Reset to 0.7 for smaller scale
-                  setPosition({ x: 0, y: 0 })
-                }}
-                className={`px-3 py-1.5 text-xs font-medium rounded-full transition-colors ${
-                  viewMode === "map" ? "bg-black text-white" : "text-gray-600 hover:text-black"
-                }`}
-              >
-                Map
-              </button>
-              <button
-                onClick={() => {
-                  setViewMode("drone")
-                  setScale(1.1)
-                  setPosition({ x: 0, y: 0 })
-                }}
-                className={`px-3 py-1.5 text-xs font-medium rounded-full transition-colors ${
-                  viewMode === "drone" ? "bg-black text-white" : "text-gray-600 hover:text-black"
-                }`}
-              >
-                Drone
-              </button>
-            </div>
+          </div>
+          <div className="absolute top-10 right-6 flex items-center gap-1 bg-white/90 backdrop-blur rounded-full p-1 shadow-sm pointer-events-auto">
+            <button
+              onClick={() => {
+                setViewMode("map")
+                setScale(0.7)
+                setPosition({ x: 0, y: 0 })
+              }}
+              className={`px-3 py-1.5 text-xs font-medium rounded-full transition-colors ${
+                viewMode === "map" ? "bg-black text-white" : "text-gray-600 hover:text-black"
+              }`}
+            >
+              Map
+            </button>
+            <button
+              onClick={() => {
+                setViewMode("drone")
+                setScale(1.1)
+                setPosition({ x: 0, y: 0 })
+              }}
+              className={`px-3 py-1.5 text-xs font-medium rounded-full transition-colors ${
+                viewMode === "drone" ? "bg-black text-white" : "text-gray-600 hover:text-black"
+              }`}
+            >
+              Drone
+            </button>
           </div>
         </div>
       </div>
@@ -388,9 +387,14 @@ export default function FamilyStatusPage() {
                 </div>
                 <span className="text-lg font-medium text-foreground">{member.name}</span>
               </div>
-              <span className="px-4 py-1.5 bg-[#22c55e] text-white text-sm font-medium rounded-full">
-                {member.status}
-              </span>
+              <div className="flex items-center gap-2">
+                <span className="px-4 py-1.5 bg-[#22c55e] text-white text-sm font-medium rounded-full">
+                  {member.status}
+                </span>
+                <button className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center hover:bg-gray-200 transition-colors">
+                  <Phone className="w-4 h-4 text-gray-600" strokeWidth={2} />
+                </button>
+              </div>
             </div>
           ))}
         </div>

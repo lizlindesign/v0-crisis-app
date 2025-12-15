@@ -347,7 +347,7 @@ export default function EvacuationPage() {
       </div>
 
       {/* Bottom Info */}
-      <div className="bg-white px-6 pb-4 pt-2 rounded-t-3xl -mt-4 relative z-10">
+      <div className="bg-white px-6 pb-8 pt-2 rounded-t-3xl -mt-4 relative z-10">
         <div className="flex justify-center mb-2">
           <div className="w-12 h-1 bg-gray-300 rounded-full" />
         </div>

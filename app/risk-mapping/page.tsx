@@ -4,7 +4,7 @@ import type React from "react"
 
 import Link from "next/link"
 import { ChevronLeft, ArrowRight } from "lucide-react"
-import { useState, useRef } from "react"
+import { useState, useRef, useEffect } from "react"
 
 export default function RiskMappingPage() {
   const [isAnimating, setIsAnimating] = useState(false)
@@ -15,6 +15,12 @@ export default function RiskMappingPage() {
   const dragStart = useRef({ x: 0, y: 0 })
   const positionStart = useRef({ x: 0, y: 0 })
   const containerRef = useRef<HTMLDivElement>(null)
+  const [isLoaded, setIsLoaded] = useState(false)
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoaded(true), 50)
+    return () => clearTimeout(timer)
+  }, [])
 
   const handleArrowClick = () => {
     setIsAnimating(true)
@@ -70,7 +76,9 @@ export default function RiskMappingPage() {
   }
 
   return (
-    <div className="h-screen bg-white flex flex-col overflow-hidden">
+    <div
+      className={`h-screen bg-white flex flex-col overflow-hidden transition-opacity duration-500 ${isLoaded ? "opacity-100" : "opacity-0"}`}
+    >
       {/* Map Section */}
       <div
         ref={containerRef}

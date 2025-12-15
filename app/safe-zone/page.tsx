@@ -73,12 +73,12 @@ export default function SafeZonePage() {
       </div>
 
       {/* Bottom Sheet */}
-      <div className="bg-white px-6 pt-2 pb-8 rounded-t-3xl -mt-4 relative z-10">
-        <div className="flex justify-center mb-4">
+      <div className="bg-white px-6 pt-2 pb-4 rounded-t-3xl -mt-4 relative z-10">
+        <div className="flex justify-center mb-2">
           <div className="w-12 h-1 bg-gray-300 rounded-full" />
         </div>
 
-        <div onClick={handleArrowClick} className="flex items-center justify-between py-4 cursor-pointer group">
+        <div onClick={handleArrowClick} className="flex items-center justify-between py-2 cursor-pointer group">
           <div>
             <span className="text-sm font-bold tracking-tight text-gray-600">EMERGENCY CENTER</span>
             <p className="text-4xl font-bold tracking-tight text-foreground mt-1">

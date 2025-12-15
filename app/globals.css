@@ -3,25 +3,42 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* Added horizontal bounce animation for arrow */
+/* Added horizontal bounce animation for arrow - more noticeable when clicked */
 @keyframes bounce-horizontal {
   0%,
   100% {
     transform: translateX(0);
   }
   25% {
-    transform: translateX(8px);
+    transform: translateX(12px);
   }
   50% {
-    transform: translateX(-4px);
+    transform: translateX(-6px);
   }
   75% {
-    transform: translateX(4px);
+    transform: translateX(8px);
   }
 }
 
 .animate-bounce-horizontal {
-  animation: bounce-horizontal 0.6s ease-in-out;
+  animation: bounce-horizontal 0.4s ease-in-out 3;
+}
+
+/* Added subtle pulse animation for default arrow state */
+@keyframes pulse-right {
+  0%,
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  50% {
+    transform: translateX(6px);
+    opacity: 0.8;
+  }
+}
+
+.animate-pulse-right {
+  animation: pulse-right 2s ease-in-out infinite;
 }
 
 /* Reduced duration to 6s so ripples cycle faster with less pause time */

@@ -2,20 +2,26 @@
 
 import { ArrowRight } from "lucide-react"
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 
 export function AnimatedArrow() {
-  const [isAnimating, setIsAnimating] = useState(false)
+  const [isClicked, setIsClicked] = useState(false)
+  const router = useRouter()
 
   const handleClick = () => {
-    setIsAnimating(true)
-    // Reset animation after it completes
-    setTimeout(() => setIsAnimating(false), 600)
+    setIsClicked(true)
+    // Delay navigation to show enhanced arrow animation
+    setTimeout(() => {
+      router.push("/risk-mapping")
+    }, 800)
   }
 
   return (
     <button className="mt-8 p-2 cursor-pointer" onClick={handleClick}>
       <ArrowRight
-        className={`w-16 h-16 text-foreground transition-transform ${isAnimating ? "animate-bounce-horizontal" : ""}`}
+        className={`w-16 h-16 text-foreground transition-transform ${
+          isClicked ? "animate-bounce-horizontal" : "animate-pulse-right"
+        }`}
         strokeWidth={2}
       />
     </button>

@@ -1,12 +1,35 @@
+"use client"
+
+import type React from "react"
+
 import { CrisisToggle } from "@/components/crisis-toggle"
 import { ActionButton } from "@/components/action-button"
 import { AnimatedArrow } from "@/components/animated-arrow"
 import { ArrowUp, Phone } from "lucide-react"
 import Link from "next/link"
+import { useState } from "react"
+import { useRouter } from "next/navigation"
 
 export default function EarthquakePage() {
+  const [isClicked, setIsClicked] = useState(false)
+  const [isNavigating, setIsNavigating] = useState(false)
+  const router = useRouter()
+
+  const handleRiskClick = (e: React.MouseEvent) => {
+    e.preventDefault()
+    setIsClicked(true)
+    setIsNavigating(true)
+
+    // Delay navigation to show enhanced arrow animation
+    setTimeout(() => {
+      router.push("/risk-mapping")
+    }, 800)
+  }
+
   return (
-    <div className="h-screen bg-[#f5f5f5] flex items-center justify-center p-4 overflow-hidden">
+    <div
+      className={`h-screen bg-[#f5f5f5] flex items-center justify-center p-4 overflow-hidden transition-opacity duration-500 ${isNavigating ? "opacity-0" : "opacity-100"}`}
+    >
       <div className="w-full max-w-[390px] h-[780px] max-h-full bg-[#f5f5f5] rounded-[40px] overflow-hidden relative flex flex-col">
         {/* Main Content */}
         <div className="flex-1 px-6 pt-12 pb-6 flex flex-col overflow-hidden">
@@ -22,22 +45,24 @@ export default function EarthquakePage() {
                 QUAKE
               </h1>
               <div className="flex items-center gap-1 mt-3 text-muted-foreground">
-                <svg
-                  width="14"
-                  height="18"
-                  viewBox="0 0 14 18"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="opacity-70"
-                >
-                  <path
-                    d="M7 1C3.69 1 1 3.69 1 7C1 11.5 7 17 7 17C7 17 13 11.5 13 7C13 3.69 10.31 1 7 1Z"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
+                <Link href="/" className="hover:opacity-70 transition-opacity">
+                  <svg
+                    width="14"
+                    height="18"
+                    viewBox="0 0 14 18"
                     fill="none"
-                  />
-                  <circle cx="7" cy="7" r="2" stroke="currentColor" strokeWidth="1.5" fill="none" />
-                </svg>
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="opacity-70 cursor-pointer"
+                  >
+                    <path
+                      d="M7 1C3.69 1 1 3.69 1 7C1 11.5 7 17 7 17C7 17 13 11.5 13 7C13 3.69 10.31 1 7 1Z"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      fill="none"
+                    />
+                    <circle cx="7" cy="7" r="2" stroke="currentColor" strokeWidth="1.5" fill="none" />
+                  </svg>
+                </Link>
                 <span className="text-sm">San Francisco, CA</span>
               </div>
             </div>
@@ -48,9 +73,9 @@ export default function EarthquakePage() {
           <div className="flex-1" />
 
           <div className="flex flex-col gap-3">
-            <Link href="/risk-mapping" className="block">
+            <div onClick={handleRiskClick} className="block cursor-pointer">
               <ActionButton icon={<RiskIcon />} title="WHAT" subtitle="HAPPENED" variant="dark" focused={true} />
-            </Link>
+            </div>
             <Link href="/evacuation" className="block">
               <ActionButton
                 icon={<ArrowUp className="w-10 h-10" strokeWidth={2.5} />}
